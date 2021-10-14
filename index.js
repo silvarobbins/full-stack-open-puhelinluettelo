@@ -25,11 +25,15 @@ let persons = [
   ]
 
 app.get('/', (req, res) => {
-res.send('<h1>Hello World!</h1>')
+    res.send('<h1>Hello World!</h1>')
 })
 
 app.get('/api/persons', (req, res) => {
-res.json(persons)
+    res.json(persons)
+})
+
+app.get('/info', (req, res) => {
+    res.send(`<p>Phonebook has info of ${persons.length} people<\p> <p>${Date()}<\p>`)
 })
 
 const PORT = 3001
