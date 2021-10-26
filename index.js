@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
-//const mongoose = require('mongoose')
+const mongoose = require('mongoose')
 require('dotenv').config()
 const Person = require('./models/person')
 
@@ -55,17 +55,17 @@ app.delete('/api/persons/:id', (req, res, next) => {
 app.post('/api/persons', (req, res, next) => {
     const body = req.body
 
-    if (body.name === undefined) {
-        return res.status(400).json({ 
-          error: 'name missing' 
-        })
-    }
+    // if (body.name === undefined) {
+    //     return res.status(400).json({ 
+    //       error: 'name missing' 
+    //     })
+    // }
 
-    if (body.number === undefined) {
-        return res.status(400).json({ 
-          error: 'number missing' 
-        })
-    }
+    // if (body.number === undefined) {
+    //     return res.status(400).json({ 
+    //       error: 'number missing' 
+    //     })
+    // }
 
     // if (persons.map(p => p.name).indexOf(body.name) >= 0) {
     //     return res.status(400).json({ 
@@ -78,9 +78,12 @@ app.post('/api/persons', (req, res, next) => {
         number: body.number
     })
 
-    person.save().then(savedPerson => {
-      res.json(savedPerson.toJSON())
-    })
+    person
+      .save()
+      .then(savedPerson => savedPerson.toJSON())
+      .then(savedAndFormattedPerson => {
+        res.json(savedAndFormattedPerson)
+      }) 
     .catch(error => next(error))
   })
 
