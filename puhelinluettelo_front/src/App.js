@@ -46,7 +46,6 @@ const App = () => {
         name: newName,
         number: newNumber
         }
-      setPersons(persons.concat(personObject))
 
       personsService
         .create(personObject)
@@ -56,11 +55,11 @@ const App = () => {
           setTimeout(() => {
             setNotificationMessage(null)
           }, 5000);
+          setNewName('')
+          setNewNumber('')
         })
     }
 
-    setNewName('')
-    setNewNumber('')
   }
 
   const update = id => {
