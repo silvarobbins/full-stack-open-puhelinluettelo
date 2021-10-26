@@ -54,7 +54,7 @@ app.delete('/api/persons/:id', (req, res, next) => {
 
 app.post('/api/persons', (req, res, next) => {
     const body = req.body
-    
+
     const person = new Person({
         name: body.name,
         number: body.number
@@ -77,7 +77,7 @@ app.post('/api/persons', (req, res, next) => {
       number: body.number
     }
   
-    Person.findByIdAndUpdate(req.params.id, person, { new: true })
+    Person.findByIdAndUpdate(req.params.id, person, { new: true, runValidators: true})
       .then(updatedPerson => {
         res.json(updatedPerson)
       })
