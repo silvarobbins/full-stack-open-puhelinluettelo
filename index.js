@@ -54,24 +54,6 @@ app.delete('/api/persons/:id', (req, res, next) => {
 
 app.post('/api/persons', (req, res, next) => {
     const body = req.body
-
-    // if (body.name === undefined) {
-    //     return res.status(400).json({ 
-    //       error: 'name missing' 
-    //     })
-    // }
-
-    // if (body.number === undefined) {
-    //     return res.status(400).json({ 
-    //       error: 'number missing' 
-    //     })
-    // }
-
-    // if (persons.map(p => p.name).indexOf(body.name) >= 0) {
-    //     return res.status(400).json({ 
-    //     error: 'name must be unique' 
-    //     })
-    // }
     
     const person = new Person({
         name: body.name,

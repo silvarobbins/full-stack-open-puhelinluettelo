@@ -59,7 +59,8 @@ const App = () => {
           setNewNumber('')
         })
         .catch(error => {
-          setErrorMessage(`Person validation failed: Name '${personObject.name}' is shorter than the minimum allowed length. (3)`)
+          console.log(error.response.data)          
+          setErrorMessage(`${error.response.data.error}`)
           setTimeout(() => {
           setErrorMessage(null)
         }, 5000)
