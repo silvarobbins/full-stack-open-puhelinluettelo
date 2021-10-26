@@ -1,7 +1,6 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const mongoose = require('mongoose')
 require('dotenv').config()
 const Person = require('./models/person')
 
@@ -22,67 +21,67 @@ const errorHandler = (error, request, response, next) => {
 }
 
 app.get('/api/persons', (req, res) => {
-    Person.find({}).then(persons => {
-      res.json(persons)
-    })
+  Person.find({}).then(persons => {
+    res.json(persons)
+  })
 })
 
 app.get('/info', (req, res) => {
-    res.send(`<p>Phonebook has info of ${Person.length} people<\p> <p>${Date()}<\p>`)
+  res.send(`<p>Phonebook has info of ${Person.length} people<> <p>${Date()}<>`)
 })
 
 app.get('/api/persons/:id', (req, res, next) => {
-    Person.findById(req.params.id)
+  Person.findById(req.params.id)
     .then( person => {
       if (person) {
         res.json(person)
       } else {
-          res.status(404).end()
+        res.status(404).end()
       }
-    })
-    .catch(error => next(error))
-    })
-
-
-app.delete('/api/persons/:id', (req, res, next) => {
-  Person.findByIdAndRemove(req.params.id)
-    .then(result => {
-      res.status(204).end()
     })
     .catch(error => next(error))
 })
 
-app.post('/api/persons', (req, res, next) => {
-    const body = req.body
 
-    const person = new Person({
-        name: body.name,
-        number: body.number
-    })
-
-    person
-      .save()
-      .then(savedPerson => savedPerson.toJSON())
-      .then(savedAndFormattedPerson => {
-        res.json(savedAndFormattedPerson)
-      }) 
+app.delete('/api/persons/:id', (req, res, next) => {
+  Person.findByIdAndRemove(req.params.id)
+    .then(
+      res.status(204).end()
+    )
     .catch(error => next(error))
+})
+
+app.post('/api/persons', (req, res, next) => {
+  const body = req.body
+
+  const person = new Person({
+    name: body.name,
+    number: body.number
   })
 
-  app.put('/api/persons/:id', (req, res, next) => {
-    const body = req.body
-  
-    const person = {
-      name: body.name,
-      number: body.number
-    }
-  
-    Person.findByIdAndUpdate(req.params.id, person, { new: true, runValidators: true})
-      .then(updatedPerson => {
-        res.json(updatedPerson)
-      })
-      .catch(error => next(error))
-  })
+  person
+    .save()
+    .then(savedPerson => savedPerson.toJSON())
+    .then(savedAndFormattedPerson => {
+      res.json(savedAndFormattedPerson)
+    })
+    .catch(error => next(error))
+})
+
+app.put('/api/persons/:id', (req, res, next) => {
+  const body = req.body
+
+  const person = {
+    name: body.name,
+    number: body.number
+  }
+
+  Person.findByIdAndUpdate(req.params.id, person, { new: true, runValidators: true } )
+    .then(updatedPerson => {
+      res.json(updatedPerson)
+    })
+    .catch(error => next(error))
+})
 
 
 app.use(errorHandler)
