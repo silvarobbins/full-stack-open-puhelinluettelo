@@ -10,7 +10,7 @@ const name_par = process.argv[3]
 const number_par = process.argv[4]
 
 const url =
-  `mongodb+srv://fullstack:${password}@cluster0.rg7ao.mongodb.net/puhelinluettelo?retryWrites=true`
+  `mongodb+srv://fullstack:${password}@cluster0.rg7ao.mongodb.net/puhelinluettelo?retryWrites=true&w=majority`
 
 mongoose.connect(url)
 
